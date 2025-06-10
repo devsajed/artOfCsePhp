@@ -1,6 +1,10 @@
 <?php
 require_once "connect.php";
-// include_once "create.php";
+session_start();
+if (!isset($_SESSION['login'])) {
+  header("Location: login.php");
+  exit;
+}
 
 $id = $_GET['id'];
 
@@ -36,7 +40,11 @@ $std = mysqli_fetch_assoc($query);
 
           <tr>
             <th width="80">Name: </th>
-            <td><?php echo $std['name'] ." --". "52 minutes past today"; ?></td>
+            <td><?php echo $std['name']; ?></td>
+          </tr>
+          <tr>
+            <th width="80">Roll: </th>
+            <td><?php echo $std['roll']; ?></td>
           </tr>
           <tr>
             <th>Email :</th>

@@ -1,29 +1,23 @@
 <?php
 require_once "connect.php";
 session_start();
+
 if (!isset($_SESSION['login'])) {
   header("Location: login.php");
   exit;
 }
 
-
+$id = $_POST['id'];
 $name = $_POST['name'];
 $roll = $_POST['roll'];
 $email = $_POST['email'];
 $age = $_POST['age'];
 
-$sql = "INSERT INTO users (name, roll, email, age) VALUES ('$name','$roll', '$email', $age)";
+$sql = "UPDATE users SET name='$name',roll='$roll', email='$email', age='$age' WHERE id=$id";
 $result = mysqli_query($conn, $sql);
-
-if($result){
-  $_SESSION['success'] = 1;
-
+// var_dump($result);
+if ($result) {
   header("Location: index.php");
-  exit;
-}else{
-  $_SESSION['error'] = 1;
-  header("Location: newAdd.php");
-  exit;
+} else {
+  echo "Update failed oops!";
 }
-session_destroy();
-?>
